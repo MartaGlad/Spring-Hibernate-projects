@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.gladysz'
 version = '0.0.1-SNAPSHOT'
-description = 'Spring-Hibernate'
+description = 'spring-events'
 
 java {
     toolchain {
@@ -24,19 +24,6 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('bootJar') {
-    enabled = false
-}
-
-tasks.named('jar') {
-    enabled = true
-}
-
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-subprojects {
-    tasks.register("prepareKotlinBuildScriptModel") {
-    }
 }

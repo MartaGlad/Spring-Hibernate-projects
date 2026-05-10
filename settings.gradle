@@ -1,3 +1,4 @@
 rootProject.name = 'Spring-Hibernate'
 
 include 'bean-lifecycle'
+include 'spring-events'
