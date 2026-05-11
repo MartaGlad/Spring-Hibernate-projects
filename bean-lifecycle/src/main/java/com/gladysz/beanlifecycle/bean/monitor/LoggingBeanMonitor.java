@@ -8,7 +8,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 
 public class LoggingBeanMonitor implements BeanPostProcessor {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(LoggingBeanMonitor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingBeanMonitor.class);
 
     @Override
     public @Nullable Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
