@@ -3,7 +3,6 @@ package com.gladysz.springevents.controller;
 import com.gladysz.springevents.domain.ProductDto;
 import com.gladysz.springevents.event.ProductRegisteredEvent;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/products")
-public class ProductController implements ApplicationEventPublisherAware {
+public class ProductController {
 
-    private ApplicationEventPublisher publisher;
+    private final ApplicationEventPublisher publisher;
+
+    public ProductController(ApplicationEventPublisher publisher) {
+        this.publisher = publisher;
+    }
 
     @PostMapping(path = "createProduct")
     public void createProduct(@RequestBody ProductDto productDto) {
@@ -27,13 +30,5 @@ public class ProductController implements ApplicationEventPublisherAware {
                         productDto.getOtherData()
                 )
         );
-    }
-
-
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-
-        this.publisher = applicationEventPublisher;
-
     }
 }

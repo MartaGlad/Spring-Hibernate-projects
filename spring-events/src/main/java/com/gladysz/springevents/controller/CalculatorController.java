@@ -3,7 +3,6 @@ package com.gladysz.springevents.controller;
 import com.gladysz.springevents.domain.NumbersDto;
 import com.gladysz.springevents.event.CalculatorEvent;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +12,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1/calculator")
-public class CalculatorController implements ApplicationEventPublisherAware {
+public class CalculatorController {
 
-    private ApplicationEventPublisher publisher;
+    private final ApplicationEventPublisher publisher;
+
+    CalculatorController(ApplicationEventPublisher publisher) {
+        this.publisher = publisher;
+    }
 
     @PostMapping(path = "/add")
     public Double add(@RequestBody NumbersDto numbersDto) {
@@ -103,13 +106,5 @@ public class CalculatorController implements ApplicationEventPublisherAware {
                 )
         );
         return result;
-    }
-
-
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-
-        this.publisher = applicationEventPublisher;
-
     }
 }
