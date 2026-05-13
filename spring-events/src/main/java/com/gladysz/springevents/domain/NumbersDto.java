@@ -1,8 +1,13 @@
 package com.gladysz.springevents.domain;
 
+import jakarta.validation.constraints.NotNull;
+
 public class NumbersDto {
 
+    @NotNull
     private Double number1;
+
+    @NotNull
     private Double number2;
 
     public NumbersDto() {

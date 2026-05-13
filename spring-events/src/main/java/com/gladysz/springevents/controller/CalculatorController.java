@@ -2,6 +2,7 @@ package com.gladysz.springevents.controller;
 
 import com.gladysz.springevents.domain.NumbersDto;
 import com.gladysz.springevents.event.CalculatorEvent;
+import jakarta.validation.Valid;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class CalculatorController {
     }
 
     @PostMapping(path = "/add")
-    public Double add(@RequestBody NumbersDto numbersDto) {
+    public Double add(@Valid @RequestBody NumbersDto numbersDto) {
 
         Double result = numbersDto.getNumber1() + numbersDto.getNumber2();
 
@@ -39,7 +40,7 @@ public class CalculatorController {
 
 
     @PostMapping(path = "/subtract")
-    public Double subtract(@RequestBody NumbersDto numbersDto) {
+    public Double subtract(@Valid @RequestBody NumbersDto numbersDto) {
 
         Double result = numbersDto.getNumber1() - numbersDto.getNumber2();
 
@@ -57,7 +58,7 @@ public class CalculatorController {
 
 
     @PostMapping(path = "/multiply")
-    public Double multiply(@RequestBody NumbersDto numbersDto) {
+    public Double multiply(@Valid @RequestBody NumbersDto numbersDto) {
 
         Double result = numbersDto.getNumber1() * numbersDto.getNumber2();
 
@@ -75,7 +76,7 @@ public class CalculatorController {
 
 
     @PostMapping(path = "/divide")
-    public Double divide(@RequestBody NumbersDto numbersDto) {
+    public Double divide(@Valid @RequestBody NumbersDto numbersDto) {
 
         if (numbersDto.getNumber2() == 0) {
 
