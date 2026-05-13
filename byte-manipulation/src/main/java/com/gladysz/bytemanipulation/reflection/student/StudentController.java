@@ -10,25 +10,35 @@ import java.util.Map;
 @RequestMapping("/v1/student")
 public class StudentController {
 
-    @PostMapping(path = "/create")
-    public Map<Integer, String> createStudents(@RequestParam(defaultValue = "20") int n,
-                                               @RequestParam(defaultValue = "10") int z)
-            throws NoSuchFieldException, IllegalAccessException {
+    private static final Field INDEX_NUMBER_FIELD;
 
-        Student[] studentsTab = new Student[n];
+    static {
+        try {
+            INDEX_NUMBER_FIELD = Student.class.getDeclaredField("indexNumber");
+            INDEX_NUMBER_FIELD.setAccessible(true);
+
+        } catch (NoSuchFieldException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    @GetMapping(path = "/generate")
+    public Map<Integer, String> generateStudents(@RequestParam(defaultValue = "20") int n,
+                                                 @RequestParam(defaultValue = "10") int z)
+            throws IllegalAccessException {
+
+
         Map<Integer, String> studentsMap = new HashMap<>();
-
-        Field indexNumberField = Student.class.getDeclaredField("indexNumber");
-        indexNumberField.setAccessible(true);
 
         for (int i = 0; i < n; i++) {
             Student student = new Student(z);
-            studentsTab[i] = student;
-        }
+            String value = (String) INDEX_NUMBER_FIELD.get(student);
 
-        for (Student student : studentsTab) {
-            String value = (String) indexNumberField.get(student);
-            studentsMap.put(System.identityHashCode(student), value);
+            studentsMap.put(
+                    System.identityHashCode(student),
+                    value
+            );
         }
         return studentsMap;
     }

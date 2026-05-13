@@ -2,7 +2,7 @@ package com.gladysz.bytemanipulation.reflection.book;
 
 public class Book {
 
-    private String title;
+    private final String title;
     private String signature;
     private int year;
 
