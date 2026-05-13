@@ -13,7 +13,7 @@ public class CalculatorListener implements ApplicationListener<CalculatorEvent> 
 
     @Override
     public void onApplicationEvent(CalculatorEvent event) {
-        LOGGER.info("\nCalculator operation: {} \nNumber1: {} \nNumber2: {} \nResult: {}",
-                event.getOperation(), event.getNumebr1(), event.getNumebr2(), event.getResult());
+        LOGGER.info("Calculator operation: {} Number1: {} Number2: {} Result: {}",
+                event.getOperation(), event.getNumber1(), event.getNumber2(), event.getResult());
     }
 }

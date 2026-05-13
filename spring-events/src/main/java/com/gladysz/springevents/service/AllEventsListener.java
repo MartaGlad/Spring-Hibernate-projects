@@ -15,7 +15,7 @@ public class AllEventsListener implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
 
-        LOGGER.info("Spring event: {} \nSource: {}",
+        LOGGER.info("Spring event: {} Source: {}",
                 event.getClass().getName(), event.getSource().getClass().getName());
 
         System.out.println("----------------------------------------------------------");

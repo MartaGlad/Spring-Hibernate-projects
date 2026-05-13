@@ -4,18 +4,18 @@ import org.springframework.context.ApplicationEvent;
 
 public class CalculatorEvent extends ApplicationEvent {
 
-    private String operation;
-    private Double numebr1;
-    private Double numebr2;
-    private Double result;
+    private final String operation;
+    private final Double number1;
+    private final Double number2;
+    private final Double result;
 
 
     public CalculatorEvent(Object source, String operation,
-                           Double numebr1, Double numebr2,  Double result) {
+                           Double number1, Double number2, Double result) {
         super(source);
         this.operation = operation;
-        this.numebr1 = numebr1;
-        this.numebr2 = numebr2;
+        this.number1 = number1;
+        this.number2 = number2;
         this.result = result;
     }
 
@@ -26,15 +26,15 @@ public class CalculatorEvent extends ApplicationEvent {
     }
 
 
-    public Double getNumebr1() {
+    public Double getNumber1() {
 
-        return numebr1;
+        return number1;
     }
 
 
-    public Double getNumebr2() {
+    public Double getNumber2() {
 
-        return numebr2;
+        return number2;
     }
 
 
