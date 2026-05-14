@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.gladysz'
+version = '0.0.1-SNAPSHOT'
+description = 'byte-buddy'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.bytebuddy:byte-buddy:1.14.19'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes(
+                /*'Main-Class': 'com.gladysz.bytebuddy.book.BuddyApp'*/
+                'Main-Class': 'com.gladysz.bytebuddy.user.JavaAgentController'
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath
+                .findAll {it.name.endsWith('jar') }
+                .collect {zipTree(it) }
+    }
+}
