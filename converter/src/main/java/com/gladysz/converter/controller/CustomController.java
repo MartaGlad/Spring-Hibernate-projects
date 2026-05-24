@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/custom/")
+@RequestMapping("/custom")
 public class CustomController {
 
-    @PostMapping(path = "add")
+    @PostMapping(path = "/add")
     public void acceptCustomTextType(@RequestBody MyCustomClass customObject) {
 
         System.out.println(customObject.getFieldOne());

@@ -1,7 +1,7 @@
-package com.gladysz.converter.controller;
+package com.gladysz.converter.config;
 
-import com.gladysz.converter.controller.object.MyCustomObjectConverter;
-import com.gladysz.converter.controller.slash.MyCustomSlashConverter;
+import com.gladysz.converter.converters.object.MyCustomObjectConverter;
+import com.gladysz.converter.converters.slash.MyCustomSlashConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
