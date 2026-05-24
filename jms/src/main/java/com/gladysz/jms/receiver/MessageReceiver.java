@@ -1,23 +1,30 @@
 package com.gladysz.jms.receiver;
 
 import com.gladysz.jms.domain.Order;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import static com.gladysz.jms.configuration.QueueNames.*;
+
+
 @Component
 public class MessageReceiver {
 
-    @JmsListener(containerFactory = "jmsFactory", destination = "queue-test")
+    private static final Logger logger = LoggerFactory.getLogger(MessageReceiver.class);
+
+    @JmsListener(containerFactory = "jmsFactory", destination = QUEUE_TEST)
     public void receive(String message) {
 
-        System.out.println("Received the message: " + message);
+        logger.info("Received the message: {}", message);
     }
 
 
-    @JmsListener(containerFactory = "jmsFactory", destination = "queue-order")
+    @JmsListener(containerFactory = "jmsFactory", destination = QUEUE_ORDER)
     public void receiveOrder(@Payload Order order) {
 
-        System.out.println("Received the order: " + order);
+        logger.info("Received the order: {}", order);
     }
 }

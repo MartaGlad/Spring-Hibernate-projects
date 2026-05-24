@@ -19,8 +19,7 @@ public class Order implements Serializable {
     }
 
 
-    public Order(Long id, String productName, int quantity,
-                 BigDecimal price, String customerEmail) {
+    public Order(Long id, String productName, int quantity, BigDecimal price, String customerEmail) {
         this.id = id;
         this.productName = productName;
         this.quantity = quantity;
