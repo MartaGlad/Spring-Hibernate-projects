@@ -21,15 +21,14 @@ public class Agent {
                 "Is retransform classes allowed: " + instrumentation.isRetransformClassesSupported());
 
         AgentBuilder agentBuilder = new Default()
-                .type(ElementMatchers.nameStartsWith("com.gladysz.bytebuddy"))
+                .type(ElementMatchers.nameStartsWith("com.gladysz.bytebuddy.user"))
                 .transform((((builder, typeDescription, classLoader, module, protectionDomain) -> {
 
                     System.out.println("Class " + typeDescription);
 
                     return builder.visit(
                             Advice.to(MyMethodMonitor.class)
-                                    .on(/*ElementMatchers.any()*/
-                                        ElementMatchers.named("doSomething")));
+                                    .on(ElementMatchers.named("doSomething")));
                 } )));
 
         agentBuilder.installOn(instrumentation);

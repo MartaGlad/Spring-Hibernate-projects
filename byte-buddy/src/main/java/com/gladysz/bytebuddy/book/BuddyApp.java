@@ -6,6 +6,8 @@ public class BuddyApp {
 
     public static void main(String[] args) throws Exception {
 
+        // ===== EDUCATIONAL NOTE: example from previous Byte Buddy exercise =====
+
         /*Class<?> dynamicBookClass = new ByteBuddy().subclass(Book.class)
                 .method(ElementMatchers.named("toString"))
                 .intercept(FixedValue.value("Hello my Buddy!"))
@@ -16,6 +18,7 @@ public class BuddyApp {
         Class[] parameterTypes = { String.class, String.class, int.class };
         System.out.println(dynamicBookClass.getDeclaredConstructor(parameterTypes)
                 .newInstance("title", "author", 2010));*/
+        // =========================================================================
 
         List<Book> books = BooksGenerator.generate(100);
 
