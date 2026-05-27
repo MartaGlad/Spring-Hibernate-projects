@@ -1,11 +1,15 @@
 package com.gladysz.bytemanipulation.reflection.student;
 
+
+import com.gladysz.taskvalidator.annotation.Range;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+@Validated
 @RestController
 @RequestMapping("/v1/student")
 public class StudentController {
@@ -24,8 +28,9 @@ public class StudentController {
 
 
     @GetMapping(path = "/generate")
-    public Map<Integer, String> generateStudents(@RequestParam(defaultValue = "20") int n,
-                                                 @RequestParam(defaultValue = "10") int z)
+    public Map<Integer, String> generateStudents(
+            @RequestParam(defaultValue = "20") @Range(min = 1, max = 100) Integer n,
+            @RequestParam(defaultValue = "10") @Range(min = 1, max = 50) Integer z)
             throws IllegalAccessException {
 
 
