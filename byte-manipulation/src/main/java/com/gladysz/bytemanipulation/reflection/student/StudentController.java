@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Validated
 @RestController
-@RequestMapping("/v1/student")
+@RequestMapping("/byte-manipulation/student")
 public class StudentController {
 
     private static final Field INDEX_NUMBER_FIELD;

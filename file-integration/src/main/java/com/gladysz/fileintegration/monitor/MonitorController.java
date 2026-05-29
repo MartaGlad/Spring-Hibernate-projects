@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 
 @RestController
-@RequestMapping("/monitor")
+@RequestMapping("/file-integration/monitor")
 public class MonitorController {
 
     @PostMapping("/create")

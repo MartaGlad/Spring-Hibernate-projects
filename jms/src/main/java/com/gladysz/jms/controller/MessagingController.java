@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.gladysz.jms.configuration.QueueNames.*;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/jms/messages")
 public class MessagingController {
 
     private final JmsTemplate jmsTemplate;

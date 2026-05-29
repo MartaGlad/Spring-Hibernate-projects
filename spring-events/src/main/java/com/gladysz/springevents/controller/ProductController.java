@@ -8,17 +8,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
-@RequestMapping("/v1/products")
+@RequestMapping("/spring-events/products")
 public class ProductController {
 
     private final ApplicationEventPublisher publisher;
 
     public ProductController(ApplicationEventPublisher publisher) {
+
         this.publisher = publisher;
     }
 
-    @PostMapping(path = "createProduct")
+
+    @PostMapping(path = "/createProduct")
     public void createProduct(@RequestBody ProductDto productDto) {
 
         System.out.println("Register product: " + productDto.getProductName());

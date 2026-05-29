@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("csv-converter/person")
 public class PersonController {
 
     private final Job personAgeJob;

@@ -4,12 +4,15 @@ import com.gladysz.webflux.domain.BookDto;
 import com.gladysz.webflux.service.BookService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 
+
 @RestController
+@RequestMapping("/webflux")
 public class FluxController {
 
     private final BookService bookService;

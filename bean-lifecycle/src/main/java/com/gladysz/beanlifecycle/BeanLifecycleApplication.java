@@ -3,11 +3,14 @@ package com.gladysz.beanlifecycle;
 import com.gladysz.beanlifecycle.bean.LibraryManager;
 import com.gladysz.beanlifecycle.bean.MrBean;
 import com.gladysz.beanlifecycle.configuration.AppConfiguration;
+import com.gladysz.securitycommon.SecurityConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Import;
 
 
+@Import(SecurityConfiguration.class)
 @SpringBootApplication
 public class BeanLifecycleApplication {
 
