@@ -3,25 +3,28 @@ package com.gladysz.proxy.weather;
 
 public class LazyWeatherForecastProxy implements WeatherService {
 
-    private final WeatherForecast weatherForecast;
+    private WeatherForecast weatherForecast;
 
 
-    public LazyWeatherForecastProxy() {
+    private WeatherForecast getWeatherForecast() {
 
-        weatherForecast = new WeatherForecast(true);
+        if (weatherForecast == null) {
+            weatherForecast = new WeatherForecast();
+        }
+        return weatherForecast;
     }
 
 
     @Override
     public String getWeather() {
 
-        return weatherForecast.getWeather();
+        return getWeatherForecast().getWeather();
     }
 
 
     @Override
     public void refreshData() throws InterruptedException {
 
-        weatherForecast.refreshData();
+        getWeatherForecast().refreshData();
     }
 }

@@ -1,7 +1,7 @@
 package com.gladysz.proxy;
 
+import com.gladysz.proxy.weather.AutoRefreshingWeatherForecast;
 import com.gladysz.proxy.weather.LazyWeatherForecastProxy;
-import com.gladysz.proxy.weather.WeatherForecast;
 import com.gladysz.proxy.weather.WeatherService;
 
 import java.util.Random;
@@ -15,14 +15,14 @@ public class ProxyAppWeather {
 
         Random random = new Random();
 
-        for (int n = 0; n < 5; n++) {
+        //WeatherService weatherService = new AutoRefreshingWeatherForecast();
+        WeatherService weatherService = new LazyWeatherForecastProxy();
 
-            //WeatherService weatherService = new WeatherForecast();
-            WeatherService weatherService = new LazyWeatherForecastProxy();
+        for (int n = 0; n < 5; n++) {
 
             System.out.println(weatherService.getWeather());
 
-            if (random.nextInt(100) < 20) {
+            if (random.nextInt(100) < 5) {
                 weatherService.refreshData();
                 System.out.println("Weather refreshed");
             }

@@ -4,29 +4,29 @@ public class LazyDataRetrieverProxy implements DbDataRetriever {
 
     private DbDataRetriever retriever;
 
+    private DbDataRetriever getRetriever() throws InterruptedException {
+        if(retriever == null)
+            retriever = new PostgresDataRetriever();
+        return retriever;
+    }
+
     @Override
     public int getFirstValue() throws InterruptedException {
 
-        if(retriever == null)
-            retriever = new PostgresDataRetriever();
-        return retriever.getFirstValue();
+        return getRetriever().getFirstValue();
     }
 
 
     @Override
     public int getSecondValue() throws InterruptedException {
 
-        if(retriever == null)
-            retriever = new PostgresDataRetriever();
-        return retriever.getSecondValue();
+        return getRetriever().getSecondValue();
     }
 
 
     @Override
     public int getThirdValue() throws InterruptedException {
 
-        if(retriever == null)
-            retriever = new PostgresDataRetriever();
-        return retriever.getThirdValue();
+        return getRetriever().getThirdValue();
     }
 }

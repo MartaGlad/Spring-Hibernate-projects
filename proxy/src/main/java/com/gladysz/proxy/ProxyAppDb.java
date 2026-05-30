@@ -13,10 +13,10 @@ public class ProxyAppDb {
 
         long begin = System.currentTimeMillis();
 
-        for (int n = 0; n < 5; n++) {
+        DbDataRetriever dbDataRetriever = new PostgresDataRetriever();
+        //DbDataRetriever dbDataRetriever = new LazyDataRetrieverProxy();
 
-            DbDataRetriever dbDataRetriever = new PostgresDataRetriever();
-           // DbDataRetriever dbDataRetriever = new LazyDataRetrieverProxy();
+        for (int n = 0; n < 5; n++) {
 
             int number = new Random().nextInt(100);
 
