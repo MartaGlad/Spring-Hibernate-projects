@@ -1,10 +1,12 @@
 package com.gladysz.csvconverter.person.controller;
 
 import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.JobExecution;
 import org.springframework.batch.core.job.JobExecutionException;
 import org.springframework.batch.core.job.parameters.JobParameters;
 import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +28,23 @@ public class PersonController {
 
 
     @PostMapping(value = "/run")
-    public ResponseEntity<Void> run() throws JobExecutionException {
+    public ResponseEntity<String> run() throws JobExecutionException {
 
-        JobParameters parameters = new JobParametersBuilder()
+        JobExecution execution;
+
+        try {
+            JobParameters parameters = new JobParametersBuilder()
                 .addLong("timestamp", System.currentTimeMillis())
                 .toJobParameters();
 
-        jobLauncher.run(personAgeJob, parameters);
+            execution = jobLauncher.run(personAgeJob, parameters);
 
-        return ResponseEntity.accepted().build();
+        } catch (JobExecutionException e) {
+
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to execute job " + e.getMessage());
+        }
+        return ResponseEntity.ok(execution.getStatus().toString());
     }
 }

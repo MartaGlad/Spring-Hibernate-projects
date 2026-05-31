@@ -74,7 +74,7 @@ public class ProductBatchConfiguration {
 
         return new FlatFileItemWriterBuilder<Product>()
                 .name("productWriter")
-                .resource(new FileSystemResource("csv-converter/src/main/resources/product/productOutput.csv"))
+                .resource(new FileSystemResource("csv-converter/output/productOutput.csv"))
                 .shouldDeleteIfExists(true)
                 .lineAggregator(aggregator)
                 .build();

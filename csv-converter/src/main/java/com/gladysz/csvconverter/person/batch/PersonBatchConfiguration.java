@@ -16,7 +16,6 @@ import org.springframework.batch.infrastructure.item.file.FlatFileItemReader;
 import org.springframework.batch.infrastructure.item.file.FlatFileItemWriter;
 import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemWriterBuilder;
-import org.springframework.batch.infrastructure.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.infrastructure.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.infrastructure.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.infrastructure.item.file.transform.DelimitedLineAggregator;
@@ -35,6 +34,8 @@ import java.util.Objects;
 @EnableBatchProcessing
 public class PersonBatchConfiguration {
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d.M.yyyy");
+
     @Bean
     FlatFileItemReader<PersonInput> personReader() {
 
@@ -42,17 +43,14 @@ public class PersonBatchConfiguration {
         tokenizer.setDelimiter(","); // "," is also default
         tokenizer.setNames("firstName", "lastName", "birthDate");
 
-        BeanWrapperFieldSetMapper<PersonInput> mapper = new BeanWrapperFieldSetMapper<>();
-        mapper.setTargetType(PersonInput.class);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
 
         DefaultLineMapper<PersonInput> lineMapper = new DefaultLineMapper<>();
         lineMapper.setLineTokenizer(tokenizer);
         lineMapper.setFieldSetMapper(fieldSet ->
                 new PersonInput(fieldSet.readString("firstName"),
                         fieldSet.readString("lastName"),
-                        LocalDate.parse(Objects.requireNonNull(fieldSet.readString("birthDate")), formatter)));
+                        LocalDate.parse(Objects.requireNonNull(fieldSet.readString("birthDate")), FORMATTER)));
 
         return new FlatFileItemReaderBuilder<PersonInput>()
                 .name("personInputReader")
@@ -81,7 +79,7 @@ public class PersonBatchConfiguration {
 
         return new FlatFileItemWriterBuilder<PersonOutput>()
                 .name("personWriter")
-                .resource(new FileSystemResource("csv-converter/src/main/resources/person/personOutput.csv"))
+                .resource(new FileSystemResource("csv-converter/output/personOutput.csv"))
                 .shouldDeleteIfExists(true)
                 .lineAggregator(aggregator)
                 .build();
@@ -92,15 +90,15 @@ public class PersonBatchConfiguration {
     Step personAgeStep (
             JobRepository jobRepository,
             PlatformTransactionManager transactionManager,
-            ItemReader<PersonInput> reader,
-            ItemProcessor<PersonInput, PersonOutput> processor,
-            ItemWriter<PersonOutput> writer
+            ItemReader<PersonInput> personReader,
+            ItemProcessor<PersonInput, PersonOutput> personProcessor,
+            ItemWriter<PersonOutput> personWriter
     ) {
         return new StepBuilder("personAgeStep", jobRepository)
                 .<PersonInput,PersonOutput> chunk(100, transactionManager)
-                .reader(reader)
-                .processor(processor)
-                .writer(writer)
+                .reader(personReader)
+                .processor(personProcessor)
+                .writer(personWriter)
                 .build();
     }
 
