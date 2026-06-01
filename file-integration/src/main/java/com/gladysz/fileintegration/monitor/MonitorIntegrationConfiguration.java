@@ -1,5 +1,6 @@
 package com.gladysz.fileintegration.monitor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,6 +15,15 @@ import java.io.File;
 
 @Configuration
 public class MonitorIntegrationConfiguration {
+
+    @Value("${app.paths.monitor-observed}")
+    private String monitorObservedPath;
+
+    @Value("${app.paths.monitor-result}")
+    private String monitorResultPath;
+
+    @Value("${app.paths.monitor-result-simple}")
+    private String monitorResultSimplePath;
 
     @Bean
     @Profile("append")
@@ -41,10 +51,11 @@ public class MonitorIntegrationConfiguration {
 
 
     @Bean
+    @Profile({"simple", "append"})
     FileReadingMessageSource monitorFileAdapter() {
 
         FileReadingMessageSource fileSource = new FileReadingMessageSource();
-        fileSource.setDirectory(new File("file-integration/data/monitor/observed"));
+        fileSource.setDirectory(new File(monitorObservedPath));
 
         return fileSource;
     }
@@ -54,7 +65,7 @@ public class MonitorIntegrationConfiguration {
     @Profile("append")
     FileWritingMessageHandler monitorOutputHandler() {
 
-        File directory = new File("file-integration/data/monitor/result");
+        File directory = new File(monitorResultPath);
         FileWritingMessageHandler handler = new FileWritingMessageHandler(directory);
 
         handler.setFileNameGenerator(message -> "observed-files.txt");
@@ -71,7 +82,7 @@ public class MonitorIntegrationConfiguration {
     @Profile("simple")
     FileWritingMessageHandler monitorSimpleOutputHandler() {
 
-        File directory = new File("file-integration/data/monitor/result/simple");
+        File directory = new File(monitorResultSimplePath);
         FileWritingMessageHandler handler = new FileWritingMessageHandler(directory);
 
         handler.setExpectReply(false);

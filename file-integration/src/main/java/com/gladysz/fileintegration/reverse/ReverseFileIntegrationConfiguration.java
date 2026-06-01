@@ -2,6 +2,7 @@ package com.gladysz.fileintegration.reverse;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.inbound.FileReadingMessageSource;
@@ -12,6 +13,7 @@ import java.io.File;
 
 
 @Configuration
+@Profile("reverse")
 public class ReverseFileIntegrationConfiguration {
 
 
