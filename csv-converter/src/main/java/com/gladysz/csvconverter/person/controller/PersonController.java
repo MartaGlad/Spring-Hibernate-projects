@@ -28,7 +28,7 @@ public class PersonController {
 
 
     @PostMapping(value = "/run")
-    public ResponseEntity<String> run() throws JobExecutionException {
+    public ResponseEntity<String> run() {
 
         JobExecution execution;
 

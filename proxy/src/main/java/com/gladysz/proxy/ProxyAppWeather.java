@@ -22,7 +22,7 @@ public class ProxyAppWeather {
 
             System.out.println(weatherService.getWeather());
 
-            if (random.nextInt(100) < 5) {
+            if (random.nextInt(100) <= 20) {
                 weatherService.refreshData();
                 System.out.println("Weather refreshed");
             }
