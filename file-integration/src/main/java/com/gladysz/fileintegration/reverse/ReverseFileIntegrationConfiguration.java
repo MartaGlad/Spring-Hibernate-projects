@@ -1,5 +1,6 @@
 package com.gladysz.fileintegration.reverse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -15,6 +16,12 @@ import java.io.File;
 @Configuration
 @Profile("reverse")
 public class ReverseFileIntegrationConfiguration {
+
+    @Value("${app.paths.reverse-input}")
+    private String reverseInputPath;
+
+    @Value("${app.paths.reverse-output}")
+    private String reverseOutputPath;
 
 
     @Bean
@@ -33,7 +40,7 @@ public class ReverseFileIntegrationConfiguration {
     FileReadingMessageSource reverseFileAdapter() {
 
         FileReadingMessageSource fileSource = new FileReadingMessageSource();
-        fileSource.setDirectory(new File("file-integration/data/reverse/input"));
+        fileSource.setDirectory(new File(reverseInputPath));
 
         return fileSource;
     }
@@ -48,7 +55,7 @@ public class ReverseFileIntegrationConfiguration {
 
     @Bean
     FileWritingMessageHandler reverseOutputHandler() {
-        File directory = new File("file-integration/data/reverse/output");
+        File directory = new File(reverseOutputPath);
         FileWritingMessageHandler handler = new FileWritingMessageHandler(directory);
         handler.setExpectReply(false);
 

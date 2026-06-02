@@ -13,6 +13,8 @@ import org.springframework.integration.file.support.FileExistsMode;
 
 import java.io.File;
 
+
+
 @Configuration
 public class MonitorIntegrationConfiguration {
 
@@ -24,6 +26,7 @@ public class MonitorIntegrationConfiguration {
 
     @Value("${app.paths.monitor-result-simple}")
     private String monitorResultSimplePath;
+
 
     @Bean
     @Profile("append")
